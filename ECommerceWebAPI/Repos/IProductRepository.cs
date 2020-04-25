@@ -8,7 +8,7 @@ namespace ECommerceWebAPI.Repos
     public interface IProductRepository {
         IEnumerable<Product> GetProducts(Guid CategoryId);
         IEnumerable<Product> GetProducts();
-        IEnumerable<Product> GetDiscountedProducts(Guid CategoryId);
+        IEnumerable<Product> GetDiscountedProducts();
         Product GetProductByName(string ProductName); // Search by Name
         void CreateProduct(Guid CategoryId, Product product);
         void UpdateProducts(Product product);
