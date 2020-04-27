@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 namespace ECommerceWebAPI.Repos
 {
     public interface IProductRepository {
-        IEnumerable<Product> GetProducts(Guid CategoryId);
-        IEnumerable<Product> GetProducts();
-        IEnumerable<Product> GetDiscountedProducts();
-        Product GetProductByName(string ProductName); // Search by Name
-        void CreateProduct(Guid CategoryId, Product product);
-        void UpdateProducts(Product product);
-        void DeleteProduct(Product product);
+        Task<Product> GetProduct(int Id);
+        Task<List<Product>> GetProducts();
+        Task<List<Product>> GetDiscountedProducts();
+        Task<List<Product>> GetProductByName(string ProductName); // Search by Name
+        Task<bool> CreateProduct(Product product);
+        Task<bool> UpdateProduct(Product product);
+        Task<bool> DeleteProduct(Product product);
     }
 }
