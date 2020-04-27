@@ -40,11 +40,13 @@ namespace ECommerceWebAPI.Controllers
             return product;
         }
 
+        [HttpGet("DiscountedProducts")]
         public async Task<ActionResult<IEnumerable<Product>>> GetDiscountedProducts() {
             return await ProdRepoCtx.GetDiscountedProducts();
         }
 
-        public async Task<ActionResult<IEnumerable<Product>>> getproductByName(string prodTitle) {
+        [HttpGet("getproductsByName")]
+        public async Task<ActionResult<IEnumerable<Product>>> getproductsByName(string prodTitle) {
             return await ProdRepoCtx.GetProductByName(prodTitle);
         }
 
