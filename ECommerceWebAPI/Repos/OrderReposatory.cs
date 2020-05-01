@@ -17,7 +17,19 @@ namespace ECommerceWebAPI.Repos
 
         public IEnumerable<Order> GetOrders()
         {
-            return _context.Orders.ToList();
+            return _context.Orders
+                .Include(o=>o.OrderDetails)
+                .ThenInclude(p=>p.Product)
+                .ToList();
+        }
+
+        public Order GetOrder(int OrderId)
+        {
+            return _context.Orders
+               .Include(o => o.OrderDetails)
+               .ThenInclude(p => p.Product)
+               .Where(o => o.Id == OrderId)
+               .FirstOrDefault();
         }
 
         //public List<Order> GetUserOrders(int UserId)
@@ -25,24 +37,14 @@ namespace ECommerceWebAPI.Repos
         //    return _context.Orders.Where(o => o.UserId == UserId).ToList();
         //}
 
-        
-        public List<Product> GetOrderProducts(int OrderId)
-        {
-            var ProductList = _context.Products
-                .Where(p => p.OrderDetails
-                .Any(o => o.OrderId == OrderId))
-                .ToList();
-
-            return ProductList;
-        }
-
-        public void CreateOrder(Order order)
+        public void CreateOrder(object order)
         {
             if (order == null)
             {
                 throw new ArgumentNullException("order");
             }
-            _context.Orders.Add(order);
+            //_context.Orders.Add(order);
+            _context.Add(order);
             _context.SaveChanges();
         }
 
@@ -58,7 +60,7 @@ namespace ECommerceWebAPI.Repos
             _context.SaveChanges();
         }
 
-        public Order GetOrder(int OrderId)
+        public Order OrderExist(int OrderId)
         {
             Order order = _context.Orders.Find(OrderId);
             return order;

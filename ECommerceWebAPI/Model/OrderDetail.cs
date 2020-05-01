@@ -19,9 +19,10 @@ namespace ECommerceWebAPI
 
         [ForeignKey(nameof(OrderId))]
         [InverseProperty("OrderDetails")]
-        public virtual Order Order { get; set; }
+        public /*virtual*/ Order Order { get; set; }
+
         [ForeignKey(nameof(ProductId))]
         [InverseProperty("OrderDetails")]
-        public virtual Product Product { get; set; }
+        public /*virtual*/ Product Product { get; set; }
     }
 }

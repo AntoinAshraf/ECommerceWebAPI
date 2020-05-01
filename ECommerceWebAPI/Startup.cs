@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ECommerceWebAPI
 {
@@ -31,7 +32,8 @@ namespace ECommerceWebAPI
                 option.UseSqlServer(Configuration.GetConnectionString("EcommercedatabaseContext"));
             });
             services.AddScoped<IOrderRepository, OrderReposatory>();
-            services.AddControllers();
+            services.AddControllers()
+                 .AddNewtonsoftJson(opt => { opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
             services.AddSwaggerDocument();
 
         }
